@@ -66,8 +66,13 @@ function renderWeekly(){
  document.querySelector('#weekly-count').textContent=weeklyStories.length+' '+(weeklyStories.length===1?'story':'stories');
 }
 function routeStory(){
- const m=location.hash.match(/^#weekly-story-(\\d+)$/);
- if(m)showStory(Number(m[1]));else if(window.weeklyOriginalMain && !document.querySelector('#weekly')){document.querySelector('main').innerHTML=window.weeklyOriginalMain;renderWeekly();}
+ const prefix='#weekly-story-';
+ if(location.hash.startsWith(prefix)){
+  const index=Number(location.hash.slice(prefix.length));
+  if(Number.isInteger(index)&&index>=0&&index<weeklyStories.length)showStory(index);
+ } else if(window.weeklyOriginalMain && !document.querySelector('#weekly')){
+  document.querySelector('main').innerHTML=window.weeklyOriginalMain;renderWeekly();
+ }
 }
 window.addEventListener('hashchange',routeStory);
 async function loadWeekly(){
