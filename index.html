@@ -37,6 +37,7 @@
 <section id="contact"><div class="wrap"><div class="eyebrow">06 / Get in touch</div><h2>Read, follow, connect.</h2><p class="intro">For literary inquiries, editorial correspondence and collaborations, get in touch by email.</p><p><a class="textlink" href="mailto:llewelynlewall@gmail.com">llewelynlewall@gmail.com</a></p><div class="actions"><a href="mailto:llewelynlewall@gmail.com" class="btn">Contact by email ↗</a><a href="https://www.argonline.it/author/manuel-crispo/" class="btn outline" target="_blank" rel="noopener noreferrer">ARGO author page ↗</a><a href="https://www.papersera.net/wp/author/manuel/" class="btn outline" target="_blank" rel="noopener noreferrer">Papersera archive ↗</a></div></div></section></main><footer class="footer"><div class="wrap"><div><div class="brand">Manuel Crispo <small>WRITER</small></div><p>© <span id="year">2026</span> Manuel Crispo. All rights reserved.</p></div><p>Independent author website · English edition</p></div></footer>
 <style>
 .weekly-reading{max-width:760px;margin:0 auto;padding:40px 25px 90px}.weekly-reading h1{font:400 clamp(36px,6vw,62px)/1.25 'Libre Baskerville',serif}.weekly-reading .prose{font:18px/1.95 'Libre Baskerville',serif;white-space:pre-wrap;overflow-wrap:break-word}.weekly-reading .back{display:inline-block;margin-bottom:22px}.weekly-reading .date{color:var(--muted);font-size:13px}
+ .story-illustration{display:block;max-width:540px;width:100%;height:auto;margin:30px auto 38px;object-fit:contain}
 </style>
 <script>
 document.querySelector('#year').textContent=new Date().getFullYear();
@@ -52,7 +53,10 @@ function showStory(index){
  const date=elt('div','date',storyDate(story.date));
  const title=elt('h1','',story.title);
  const body=elt('div','prose',story.body||'');
- article.append(back,date,title,body);main.replaceChildren(article);window.scrollTo(0,0);
+ if(story.image && typeof story.image==='string'){
+  const img=elt('img','story-illustration');img.src=story.image;img.alt='Illustration for '+story.title;img.loading='lazy';
+  article.append(back,date,title,img,body);
+ }else{article.append(back,date,title,body);}main.replaceChildren(article);window.scrollTo(0,0);
 }
 function renderWeekly(){
  const main=document.querySelector('main');if(!main)return;
