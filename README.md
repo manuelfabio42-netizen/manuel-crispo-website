@@ -22,3 +22,9 @@ The latest story is displayed first on the home page and all stories appear in t
 - `robots.txt` — crawler rules.
 
 No fictitious stories have been added.
+
+## Install as an app (PWA)
+
+The site includes a web manifest, Android-sized icons and a service worker. After Netlify deploys these files, visit the existing HTTPS site on Android in Chrome and choose **Install app** from the browser menu (or **Add to Home screen**). It opens in a standalone window. Weekly Stories and images viewed online can be read offline after the app has had an opportunity to cache them. While online the app always requests fresh story data.
+
+The files `manifest.webmanifest`, `service-worker.js` and `icons/` should stay at their current paths. This PWA is not an APK and is not published in the Play Store.
