@@ -24,6 +24,10 @@ content:
       - name: excerpt
         label: Short introduction
         type: text
+      - name: image
+        label: Illustration (optional)
+        type: image
+        description: Upload an illustration to appear between the title and the story text.
       - name: body
         label: Full story
         type: text
