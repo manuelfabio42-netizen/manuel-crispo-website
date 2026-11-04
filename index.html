@@ -38,6 +38,7 @@
 <style>
 .weekly-reading{max-width:760px;margin:0 auto;padding:40px 25px 90px}.weekly-reading h1{font:400 clamp(36px,6vw,62px)/1.25 'Libre Baskerville',serif}.weekly-reading .prose{font:18px/1.95 'Libre Baskerville',serif;white-space:pre-wrap;overflow-wrap:break-word}.weekly-reading .back{display:inline-block;margin-bottom:22px}.weekly-reading .date{color:var(--muted);font-size:13px}
  .story-illustration{display:block;max-width:540px;width:100%;height:auto;margin:30px auto 38px;object-fit:contain}
+.story-thumb{width:74px;height:74px;object-fit:cover;flex:none;border:1px solid var(--line);background:#eae6dc}.latest-thumb{width:100%;max-width:160px;aspect-ratio:1/1;object-fit:cover;display:block;margin:0 0 16px;border:1px solid var(--line)}.story-details{flex:1;min-width:0}.weekly-archive .story{justify-content:flex-start}.weekly-archive .story .textlink{margin-left:auto}@media(max-width:560px){.story-thumb{width:58px;height:58px}.latest-thumb{max-width:130px}}
 </style>
 <script>
 document.querySelector('#year').textContent=new Date().getFullYear();
@@ -63,10 +64,11 @@ function renderWeekly(){
  if(window.weeklyOriginalMain && !main.querySelector('#weekly'))main.innerHTML=window.weeklyOriginalMain;
  if(!weeklyStories.length)return;
  const latest=weeklyStories[0],latestBox=document.querySelector('#weekly-latest');latestBox.replaceChildren();
+ if(latest.image && typeof latest.image==='string'){const pic=elt('img','latest-thumb');pic.src=latest.image;pic.alt='Illustration for '+latest.title;pic.loading='lazy';latestBox.append(pic);}
  latestBox.append(elt('div','date',storyDate(latest.date)),elt('h3','',latest.title),elt('p','',latest.excerpt||'Read the latest weekly story.'));
  const latestLink=elt('a','btn','Read the story ↗');latestLink.href='#weekly-story-0';latestBox.append(latestLink);
  const archive=document.querySelector('#weekly-archive-list');archive.replaceChildren();
- weeklyStories.forEach((story,i)=>{const item=elt('article','story'),details=elt('div'),title=elt('h3','',story.title),date=elt('div','mini',storyDate(story.date));details.append(title,date);const link=elt('a','textlink','Read story ↗');link.href='#weekly-story-'+i;item.append(details,link);archive.append(item)});
+ weeklyStories.forEach((story,i)=>{const item=elt('article','story'),details=elt('div','story-details'),title=elt('h3','',story.title),date=elt('div','mini',storyDate(story.date));details.append(title,date);const link=elt('a','textlink','Read story ↗');link.href='#weekly-story-'+i;if(story.image && typeof story.image==='string'){const pic=elt('img','story-thumb');pic.src=story.image;pic.alt='Illustration for '+story.title;pic.loading='lazy';item.append(pic);}item.append(details,link);archive.append(item)});
  document.querySelector('#weekly-count').textContent=weeklyStories.length+' '+(weeklyStories.length===1?'story':'stories');
 }
 function routeStory(){
