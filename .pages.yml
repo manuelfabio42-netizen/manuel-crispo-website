@@ -1,0 +1,30 @@
+# Pages CMS configuration for Manuel Crispo's Weekly Stories
+# Open https://app.pagescms.org and select this GitHub repository.
+media:
+  input: media
+  output: /media
+content:
+  - name: weekly-stories
+    label: Weekly Stories
+    type: file
+    path: weekly/stories.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - name: title
+        label: Story title
+        type: string
+        required: true
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+      - name: excerpt
+        label: Short introduction
+        type: text
+      - name: body
+        label: Full story
+        type: text
+        required: true
